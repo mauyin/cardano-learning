@@ -1,56 +1,56 @@
 {-
-  Bank Account with Maybe Type - Error Handling in Haskell
+  使用 Maybe 类型的银行账户 - Haskell 中的错误处理
 
-  This example demonstrates:
-  - Type aliases for clarity
-  - The Maybe type for handling potential failures
-  - Guards for conditional logic
-  - Pattern matching on Maybe values
-  - How Haskell forces you to handle errors explicitly
+  本示例演示：
+  - 使用类型别名提高代码清晰度
+  - Maybe 类型处理潜在失败
+  - 使用守卫进行条件逻辑
+  - 对 Maybe 值进行模式匹配
+  - Haskell 如何强制您显式处理错误
 -}
 
--- Type alias: makes our code more readable
+-- 类型别名：使我们的代码更易读
 type Balance = Integer
 
--- Deposit always succeeds, so it returns a plain Balance
+-- 存款总是成功，所以返回普通的 Balance
 deposit :: Balance -> Integer -> Balance
 deposit currentBalance amount = currentBalance + amount
 
--- Withdraw can fail (insufficient funds), so it returns Maybe Balance
--- Maybe has two constructors:
---   Just value  = success, contains the result
---   Nothing     = failure, no valid result
+-- 取款可能失败（余额不足），所以返回 Maybe Balance
+-- Maybe 有两个构造器：
+--   Just value  = 成功，包含结果
+--   Nothing     = 失败，没有有效结果
 withdraw :: Balance -> Integer -> Maybe Balance
 withdraw currentBalance amount
-    | amount <= 0              = Nothing  -- Can't withdraw negative or zero
-    | amount <= currentBalance = Just (currentBalance - amount)  -- Success!
-    | otherwise                = Nothing  -- Insufficient funds
+    | amount <= 0              = Nothing  -- 不能取出负数或零
+    | amount <= currentBalance = Just (currentBalance - amount)  -- 成功！
+    | otherwise                = Nothing  -- 余额不足
 
--- Transfer between accounts
--- Returns Nothing if withdrawal fails, otherwise returns new balances
+-- 账户之间的转账
+-- 如果取款失败返回 Nothing，否则返回新余额
 transfer :: Balance -> Balance -> Integer -> Maybe (Balance, Balance)
 transfer fromBalance toBalance amount =
     case withdraw fromBalance amount of
-        Nothing -> Nothing  -- Withdrawal failed
+        Nothing -> Nothing  -- 取款失败
         Just newFromBalance -> Just (newFromBalance, toBalance + amount)
 
--- Get balance or default value
+-- 获取余额或默认值
 getBalanceOrDefault :: Maybe Balance -> Balance -> Balance
 getBalanceOrDefault maybeBalance defaultValue =
     case maybeBalance of
         Nothing      -> defaultValue
         Just balance -> balance
 
--- Chain multiple operations using Maybe
--- This demonstrates how Maybe prevents operations on invalid states
+-- 使用 Maybe 链接多个操作
+-- 这演示了 Maybe 如何防止对无效状态进行操作
 performOperations :: Balance -> Maybe Balance
 performOperations balance = do
-    -- In Haskell, 'do' notation allows us to chain Maybe operations
-    balance1 <- withdraw balance 30     -- If this fails, whole chain fails
-    balance2 <- withdraw balance1 20    -- This only runs if previous succeeded
-    return (deposit balance2 10)        -- Final result
+    -- 在 Haskell 中，'do' 语法允许我们链接 Maybe 操作
+    balance1 <- withdraw balance 30     -- 如果失败，整个链条失败
+    balance2 <- withdraw balance1 20    -- 只有前一个成功才运行
+    return (deposit balance2 10)        -- 最终结果
 
--- Another way: using case for explicit control
+-- 另一种方式：使用 case 进行显式控制
 performOperationsExplicit :: Balance -> Maybe Balance
 performOperationsExplicit balance =
     case withdraw balance 30 of
@@ -60,118 +60,118 @@ performOperationsExplicit balance =
                 Nothing -> Nothing
                 Just balance2 -> Just (deposit balance2 10)
 
--- Helper function to print Maybe values nicely
+-- 辅助函数，用于美观地打印 Maybe 值
 showBalance :: Maybe Balance -> String
-showBalance Nothing = "FAILED (insufficient funds)"
-showBalance (Just b) = "SUCCESS: " ++ show b
+showBalance Nothing = "失败（余额不足）"
+showBalance (Just b) = "成功：" ++ show b
 
 main :: IO ()
 main = do
-    putStrLn "=== Bank Account with Maybe Type ==="
+    putStrLn "=== 使用 Maybe 类型的银行账户 ==="
     putStrLn ""
 
     let startBalance = 100 :: Balance
-    putStrLn $ "Starting balance: " ++ show startBalance
+    putStrLn $ "起始余额：" ++ show startBalance
 
     putStrLn ""
-    putStrLn "--- Deposit Operations (always succeed) ---"
+    putStrLn "--- 存款操作（总是成功）---"
     let afterDeposit = deposit startBalance 50
-    putStrLn $ "After depositing 50: " ++ show afterDeposit
+    putStrLn $ "存入 50 后：" ++ show afterDeposit
 
     putStrLn ""
-    putStrLn "--- Withdrawal Operations (can fail) ---"
+    putStrLn "--- 取款操作（可能失败）---"
 
     let withdrawal1 = withdraw afterDeposit 30
-    putStrLn $ "Withdraw 30: " ++ showBalance withdrawal1
+    putStrLn $ "取款 30：" ++ showBalance withdrawal1
 
     let withdrawal2 = withdraw afterDeposit 200
-    putStrLn $ "Withdraw 200: " ++ showBalance withdrawal2
+    putStrLn $ "取款 200：" ++ showBalance withdrawal2
 
     let withdrawal3 = withdraw afterDeposit 150
-    putStrLn $ "Withdraw 150: " ++ showBalance withdrawal3
+    putStrLn $ "取款 150：" ++ showBalance withdrawal3
 
     putStrLn ""
-    putStrLn "--- Pattern Matching on Maybe ---"
+    putStrLn "--- 对 Maybe 进行模式匹配 ---"
     case withdrawal1 of
-        Nothing -> putStrLn "First withdrawal failed!"
-        Just newBalance -> putStrLn $ "First withdrawal succeeded! New balance: " ++ show newBalance
+        Nothing -> putStrLn "第一次取款失败！"
+        Just newBalance -> putStrLn $ "第一次取款成功！新余额：" ++ show newBalance
 
     case withdrawal2 of
-        Nothing -> putStrLn "Second withdrawal failed! (as expected - insufficient funds)"
-        Just newBalance -> putStrLn $ "Second withdrawal succeeded! New balance: " ++ show newBalance
+        Nothing -> putStrLn "第二次取款失败！（如预期 - 余额不足）"
+        Just newBalance -> putStrLn $ "第二次取款成功！新余额：" ++ show newBalance
 
     putStrLn ""
-    putStrLn "--- Transfer Between Accounts ---"
+    putStrLn "--- 账户之间转账 ---"
     let account1 = 100
     let account2 = 50
-    putStrLn $ "Account 1: " ++ show account1
-    putStrLn $ "Account 2: " ++ show account2
+    putStrLn $ "账户 1：" ++ show account1
+    putStrLn $ "账户 2：" ++ show account2
 
     case transfer account1 account2 30 of
-        Nothing -> putStrLn "Transfer failed!"
+        Nothing -> putStrLn "转账失败！"
         Just (newAcc1, newAcc2) -> do
-            putStrLn $ "Transfer succeeded!"
-            putStrLn $ "Account 1 new balance: " ++ show newAcc1
-            putStrLn $ "Account 2 new balance: " ++ show newAcc2
+            putStrLn $ "转账成功！"
+            putStrLn $ "账户 1 新余额：" ++ show newAcc1
+            putStrLn $ "账户 2 新余额：" ++ show newAcc2
 
     case transfer account1 account2 150 of
-        Nothing -> putStrLn "Transfer of 150 failed! (insufficient funds)"
+        Nothing -> putStrLn "转账 150 失败！（余额不足）"
         Just (newAcc1, newAcc2) -> do
-            putStrLn $ "Transfer succeeded!"
-            putStrLn $ "Account 1: " ++ show newAcc1
-            putStrLn $ "Account 2: " ++ show newAcc2
+            putStrLn $ "转账成功！"
+            putStrLn $ "账户 1：" ++ show newAcc1
+            putStrLn $ "账户 2：" ++ show newAcc2
 
     putStrLn ""
-    putStrLn "--- Chained Operations ---"
-    putStrLn "Starting with 100, withdraw 30, then 20, then deposit 10:"
+    putStrLn "--- 链式操作 ---"
+    putStrLn "从 100 开始，取款 30，然后取款 20，然后存款 10："
     let result = performOperations 100
-    putStrLn $ "Result: " ++ showBalance result
+    putStrLn $ "结果：" ++ showBalance result
 
     putStrLn ""
-    putStrLn "Starting with 50, withdraw 30, then 20, then deposit 10:"
+    putStrLn "从 50 开始，取款 30，然后取款 20，然后存款 10："
     let result2 = performOperations 50
-    putStrLn $ "Result: " ++ showBalance result2
-    putStrLn "(Failed because after withdrawing 30 from 50, we only have 20 left, can't withdraw 20 more!)"
+    putStrLn $ "结果：" ++ showBalance result2
+    putStrLn "（失败是因为从 50 取款 30 后，只剩 20，无法再取款 20！）"
 
     putStrLn ""
-    putStrLn "Key Insights:"
-    putStrLn "- Maybe type forces you to handle both success and failure"
-    putStrLn "- Just value = operation succeeded"
-    putStrLn "- Nothing = operation failed"
-    putStrLn "- Pattern matching ensures you can't ignore errors"
-    putStrLn "- This prevents null pointer exceptions and undefined behavior"
-    putStrLn "- Compared to exceptions, Maybe makes errors explicit in the type signature"
+    putStrLn "关键概念："
+    putStrLn "- Maybe 类型强制您处理成功和失败两种情况"
+    putStrLn "- Just value = 操作成功"
+    putStrLn "- Nothing = 操作失败"
+    putStrLn "- 模式匹配确保您无法忽略错误"
+    putStrLn "- 这防止了空指针异常和未定义行为"
+    putStrLn "- 与异常相比，Maybe 在类型签名中显式表示错误"
 
 {-
-  To run this example:
+  运行此示例：
 
-  In GHCi:
+  在 GHCi 中：
   1. :load account.hs
   2. main
-  3. Or test directly:
+  3. 或直接测试：
      - withdraw 100 30
      - withdraw 100 150
      - transfer 100 50 30
      - performOperations 100
 
-  To compile and run:
+  编译并运行：
   1. ghc account.hs
   2. ./account
 
-  The Maybe Type in Depth:
+  深入理解 Maybe 类型：
 
   data Maybe a = Nothing | Just a
 
-  This is Haskell's way of saying "this operation might not return a value".
-  Instead of throwing exceptions or returning null (which causes crashes),
-  we explicitly wrap the result in Maybe.
+  这是 Haskell 表达"此操作可能不返回值"的方式。
+  与抛出异常或返回 null（导致崩溃）不同，
+  我们显式地将结果包装在 Maybe 中。
 
-  Benefits:
-  1. Type system tells you which operations can fail
-  2. Compiler forces you to handle both cases
-  3. No null pointer exceptions
-  4. No forgotten error handling
-  5. Composable: you can chain Maybe operations
+  好处：
+  1. 类型系统告诉您哪些操作可能失败
+  2. 编译器强制您处理两种情况
+  3. 没有空指针异常
+  4. 不会忘记错误处理
+  5. 可组合：您可以链接 Maybe 操作
 
-  This is crucial for blockchain/financial code where errors must be handled!
+  这对于必须处理错误的区块链/金融代码至关重要！
 -}

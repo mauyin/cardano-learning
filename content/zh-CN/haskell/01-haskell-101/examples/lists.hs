@@ -1,32 +1,32 @@
 {-
-  List Operations and Higher-Order Functions in Haskell
+  Haskell 中的列表操作与高阶函数
 
-  This example demonstrates:
-  - List syntax and operations
-  - Higher-order functions (map, filter, foldr, etc.)
-  - Lambda functions
-  - Function composition
-  - Why lists are fundamental in functional programming
+  本示例演示：
+  - 列表语法与操作
+  - 高阶函数（map、filter、foldr 等）
+  - Lambda 函数
+  - 函数组合
+  - 为什么列表在函数式编程中是基础
 -}
 
--- Basic list examples
+-- 基本列表示例
 numbers :: [Integer]
 numbers = [1, 2, 3, 4, 5]
 
 names :: [String]
 names = ["Alice", "Bob", "Charlie"]
 
--- Using map: apply a function to every element
+-- 使用 map：对每个元素应用函数
 -- map :: (a -> b) -> [a] -> [b]
 squaredNumbers :: [Integer]
 squaredNumbers = map (\x -> x * x) numbers
--- Using lambda: \x -> x * x means "a function that takes x and returns x squared"
+-- 使用 lambda：\x -> x * x 表示"一个接受 x 并返回 x 平方的函数"
 
 doubledNumbers :: [Integer]
 doubledNumbers = map (*2) numbers
--- (*2) is partial application: creating a function that multiplies by 2
+-- (*2) 是部分应用：创建一个乘以 2 的函数
 
--- Using filter: keep only elements that satisfy a condition
+-- 使用 filter：只保留满足条件的元素
 -- filter :: (a -> Bool) -> [a] -> [a]
 evenNumbers :: [Integer]
 evenNumbers = filter even numbers
@@ -37,11 +37,11 @@ oddNumbers = filter odd numbers
 greaterThanThree :: [Integer]
 greaterThanThree = filter (>3) numbers
 
--- Using foldr: reduce a list to a single value
+-- 使用 foldr：将列表归约为单个值
 -- foldr :: (a -> b -> b) -> b -> [a] -> b
 sumAll :: Integer
 sumAll = foldr (+) 0 numbers
--- This says: "fold right using (+), starting with 0"
+-- 这表示："使用 (+) 从右向左折叠，起始值为 0"
 -- foldr (+) 0 [1,2,3,4,5]
 -- = 1 + (2 + (3 + (4 + (5 + 0))))
 -- = 15
@@ -49,102 +49,102 @@ sumAll = foldr (+) 0 numbers
 productAll :: Integer
 productAll = foldr (*) 1 numbers
 
--- Function composition: combining multiple operations
+-- 函数组合：组合多个操作
 -- (.) :: (b -> c) -> (a -> b) -> (a -> c)
 processNumbers :: [Integer] -> Integer
 processNumbers = foldr (+) 0 . map (*2) . filter even
--- Read from right to left:
--- 1. filter even: keep even numbers
--- 2. map (*2): double each number
--- 3. foldr (+) 0: sum them all
+-- 从右向左阅读：
+-- 1. filter even：保留偶数
+-- 2. map (*2)：将每个数字翻倍
+-- 3. foldr (+) 0：求和
 
--- List comprehensions (similar to Python)
+-- 列表推导（类似 Python）
 squaresComprehension :: [Integer]
 squaresComprehension = [x * x | x <- [1..10]]
 
 evenSquares :: [Integer]
 evenSquares = [x * x | x <- [1..10], even x]
 
--- Practical example: working with pairs
+-- 实用示例：处理配对
 pairs :: [(String, Integer)]
 pairs = [("Alice", 25), ("Bob", 30), ("Charlie", 35)]
 
--- Extract names
+-- 提取名字
 extractNames :: [(String, Integer)] -> [String]
-extractNames = map fst  -- fst gets the first element of a pair
+extractNames = map fst  -- fst 获取配对的第一个元素
 
--- Filter by age
+-- 按年龄筛选
 olderThan30 :: [(String, Integer)] -> [(String, Integer)]
 olderThan30 = filter (\(name, age) -> age > 30)
 
 main :: IO ()
 main = do
-    putStrLn "=== Lists and Higher-Order Functions ==="
+    putStrLn "=== 列表与高阶函数 ==="
     putStrLn ""
 
-    putStrLn "Original list:"
+    putStrLn "原始列表："
     putStrLn $ "numbers = " ++ show numbers
 
     putStrLn ""
-    putStrLn "Using map (transform each element):"
-    putStrLn $ "squared = " ++ show squaredNumbers
-    putStrLn $ "doubled = " ++ show doubledNumbers
+    putStrLn "使用 map（转换每个元素）："
+    putStrLn $ "平方 = " ++ show squaredNumbers
+    putStrLn $ "翻倍 = " ++ show doubledNumbers
 
     putStrLn ""
-    putStrLn "Using filter (keep elements matching condition):"
-    putStrLn $ "even numbers = " ++ show evenNumbers
-    putStrLn $ "odd numbers = " ++ show oddNumbers
-    putStrLn $ "greater than 3 = " ++ show greaterThanThree
+    putStrLn "使用 filter（保留满足条件的元素）："
+    putStrLn $ "偶数 = " ++ show evenNumbers
+    putStrLn $ "奇数 = " ++ show oddNumbers
+    putStrLn $ "大于 3 = " ++ show greaterThanThree
 
     putStrLn ""
-    putStrLn "Using foldr (reduce to single value):"
-    putStrLn $ "sum = " ++ show sumAll
-    putStrLn $ "product = " ++ show productAll
+    putStrLn "使用 foldr（归约为单个值）："
+    putStrLn $ "总和 = " ++ show sumAll
+    putStrLn $ "乘积 = " ++ show productAll
 
     putStrLn ""
-    putStrLn "Function composition:"
+    putStrLn "函数组合："
     putStrLn $ "processNumbers [1..10] = " ++ show (processNumbers [1..10])
-    putStrLn "  (filters even, doubles, then sums)"
+    putStrLn "  （筛选偶数，翻倍，然后求和）"
 
     putStrLn ""
-    putStrLn "List comprehensions:"
-    putStrLn $ "squares 1-10 = " ++ show squaresComprehension
-    putStrLn $ "even squares = " ++ show evenSquares
+    putStrLn "列表推导："
+    putStrLn $ "1-10 的平方 = " ++ show squaresComprehension
+    putStrLn $ "偶数的平方 = " ++ show evenSquares
 
     putStrLn ""
-    putStrLn "Working with pairs:"
-    putStrLn $ "pairs = " ++ show pairs
-    putStrLn $ "names only = " ++ show (extractNames pairs)
-    putStrLn $ "older than 30 = " ++ show (olderThan30 pairs)
+    putStrLn "处理配对："
+    putStrLn $ "配对 = " ++ show pairs
+    putStrLn $ "仅名字 = " ++ show (extractNames pairs)
+    putStrLn $ "大于 30 岁 = " ++ show (olderThan30 pairs)
 
     putStrLn ""
-    putStrLn "Key Insights:"
-    putStrLn "- map: transform each element"
-    putStrLn "- filter: keep elements matching a condition"
-    putStrLn "- foldr: reduce list to single value"
-    putStrLn "- Lambda: \\x -> x * 2 is an anonymous function"
-    putStrLn "- Composition: combine functions with (.)"
-    putStrLn "- All these operations create NEW lists, never modify originals!"
+    putStrLn "关键概念："
+    putStrLn "- map：转换每个元素"
+    putStrLn "- filter：保留满足条件的元素"
+    putStrLn "- foldr：将列表归约为单个值"
+    putStrLn "- Lambda：\\x -> x * 2 是一个匿名函数"
+    putStrLn "- 组合：使用 (.) 组合函数"
+    putStrLn "- 所有这些操作都创建新列表，从不修改原始列表！"
 
 {-
-  To run this example:
+  运行此示例：
 
-  In GHCi:
+  在 GHCi 中：
   1. :load lists.hs
   2. main
-  3. Or test directly:
+  3. 或直接测试：
      - map (*3) [1,2,3,4,5]
      - filter (>10) [5,10,15,20]
      - foldr (+) 0 [1,2,3,4,5]
 
-  To compile and run:
+  编译并运行：
   1. ghc lists.hs
   2. ./lists
 
-  Challenge: Can you use these functions to:
-  1. Find the sum of all odd numbers from 1 to 100?
+  挑战：你能使用这些函数来：
+  1. 求 1 到 100 所有奇数的和？
      foldr (+) 0 (filter odd [1..100])
 
-  2. Get the length of all names longer than 4 characters?
+  2. 获取长度超过 4 个字符的名字数量？
      length (filter (\name -> length name > 4) names)
 -}

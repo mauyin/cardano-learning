@@ -1,67 +1,67 @@
 {-
-  Basic Functions and Immutability in Haskell
+  Haskell 中的基本函数与不可变性
 
-  This example demonstrates:
-  - Type signatures
-  - Pure functions
-  - Immutability
-  - How values don't change, only new values are created
+  本示例演示：
+  - 类型签名
+  - 纯函数
+  - 不可变性
+  - 值不会改变，只会创建新值
 -}
 
--- Type signature: This function takes two Integers and returns an Integer
--- Read "Integer -> Integer -> Integer" as:
--- "takes an Integer, then takes another Integer, then returns an Integer"
+-- 类型签名：此函数接受两个 Integer 并返回一个 Integer
+-- 将 "Integer -> Integer -> Integer" 理解为：
+-- "接受一个 Integer，然后接受另一个 Integer，然后返回一个 Integer"
 deposit :: Integer -> Integer -> Integer
 deposit balance amount = balance + amount
 
--- Another example: Simple arithmetic
+-- 另一个示例：简单算术运算
 add :: Integer -> Integer -> Integer
 add x y = x + y
 
 multiply :: Integer -> Integer -> Integer
 multiply x y = x * y
 
--- Demonstrating immutability
+-- 演示不可变性
 main :: IO ()
 main = do
-    putStrLn "=== Basic Functions and Immutability ==="
+    putStrLn "=== 基本函数与不可变性 ==="
     putStrLn ""
 
-    -- Define an immutable value
+    -- 定义一个不可变的值
     let originalBalance = 100
-    putStrLn $ "Original balance: " ++ show originalBalance
+    putStrLn $ "原始余额: " ++ show originalBalance
 
-    -- Create a new value by applying a function
+    -- 通过应用函数创建一个新值
     let newBalance = deposit originalBalance 50
-    putStrLn $ "After depositing 50: " ++ show newBalance
+    putStrLn $ "存入 50 后: " ++ show newBalance
 
-    -- Notice: originalBalance hasn't changed!
-    putStrLn $ "Original balance (unchanged): " ++ show originalBalance
-
-    putStrLn ""
-    putStrLn "Key Insight:"
-    putStrLn "- originalBalance is still 100"
-    putStrLn "- newBalance is 150"
-    putStrLn "- We created a NEW value, not modified the old one"
-    putStrLn "- This is IMMUTABILITY - the foundation of functional programming safety"
+    -- 注意：originalBalance 没有改变！
+    putStrLn $ "原始余额（未改变）: " ++ show originalBalance
 
     putStrLn ""
-    putStrLn "=== Other Examples ==="
+    putStrLn "关键概念："
+    putStrLn "- originalBalance 仍然是 100"
+    putStrLn "- newBalance 是 150"
+    putStrLn "- 我们创建了一个新值，而不是修改旧值"
+    putStrLn "- 这就是不可变性 - 函数式编程安全性的基石"
+
+    putStrLn ""
+    putStrLn "=== 其他示例 ==="
     putStrLn $ "5 + 3 = " ++ show (add 5 3)
     putStrLn $ "5 * 3 = " ++ show (multiply 5 3)
 
 {-
-  To run this example:
+  运行此示例：
 
-  In GHCi (Haskell REPL):
-  1. Load the file: :load basic.hs
-  2. Run main: main
-  3. Or test functions directly:
+  在 GHCi（Haskell REPL）中：
+  1. 加载文件：:load basic.hs
+  2. 运行 main：main
+  3. 或直接测试函数：
      - deposit 100 50
      - add 5 3
      - multiply 4 7
 
-  To compile and run:
+  编译并运行：
   1. ghc basic.hs
   2. ./basic
 -}
