@@ -1,157 +1,160 @@
-# Cardano Learning Resources
+# Cardano 学习资源
 
-Welcome to the Cardano Learning Resources repository! This is a comprehensive, open-source collection of educational materials about Cardano, Haskell, Plutus, and the broader Cardano ecosystem.
+欢迎来到 Cardano 学习资源仓库！这是一个全面的开源教育资料集合，涵盖 Cardano、Haskell、Plutus 以及更广泛的 Cardano 生态系统。
 
-## 🌍 Languages / 语言
+## 🌍 语言 / Languages
 
-- **English**: You're reading it! (Current file)
-- **简体中文**: [README.zh-CN.md](README.zh-CN.md)
+- **简体中文**: 您正在阅读！（当前文件）
+- **English**: [README.en.md](README.en.md)
 
-## 📚 Content Overview
+## 📚 内容概览
 
-This repository is organized by topics, with each topic containing articles, code examples, and practical exercises. All content is available in both English and Simplified Chinese.
+本仓库按主题组织，每个主题包含文章、代码示例和实践练习。所有内容均提供英文和简体中文版本。
 
-### Current Topics
+### 当前主题
 
 #### 🔷 Haskell
-- **[Haskell 101](content/en/haskell/01-haskell-101/)** - Why Cardano Chose Haskell: A deep dive into functional programming and its perfect match with Cardano's philosophy
-  - Basic functions and immutability
-  - Recursion and pattern matching
-  - List operations and higher-order functions
-  - Error handling with Maybe types
+- **[Haskell 101](content/zh-CN/haskell/01-haskell-101/)** - 为什么 Cardano 选择 Haskell：深入探讨函数式编程及其与 Cardano 理念的完美契合
+  - 基本函数与不可变性
+  - 递归与模式匹配
+  - 列表操作与高阶函数
+  - 使用 Maybe 类型进行错误处理
 
-#### 🔷 Plutus (Coming Soon)
-- Smart contract development on Cardano
-- From Haskell to on-chain code
-- Real-world Plutus examples
+#### 🔷 Plutus（即将推出）
+- Cardano 智能合约开发
+- 从 Haskell 到链上代码
+- 真实世界的 Plutus 示例
 
-#### 🔷 Cardano Blockchain (Coming Soon)
-- Node operation
-- Staking mechanisms
-- Governance and voting
-- Native assets
+#### 🔷 Cardano 区块链（即将推出）
+- 节点运维
+- 质押机制
+- 治理与投票
+- 原生资产
 
-#### 🔷 Other Languages (Coming Soon)
+#### 🔷 其他语言（即将推出）
 - Aiken
-- Rust in the Cardano ecosystem
+- Cardano 生态中的 Rust
 
-## 🚀 Getting Started
+## 🚀 快速开始
 
-### For Readers
+### 对于阅读者
 
-1. **Choose your language**: Navigate to either `content/en/` or `content/zh-CN/`
-2. **Pick a topic**: Start with Haskell 101 if you're new to functional programming
-3. **Read and code**: Each article includes runnable code examples
-4. **Experiment**: All code examples can be run locally with GHC/GHCi
+1. **选择您的语言**：导航至 `content/en/` 或 `content/zh-CN/`
+2. **选择一个主题**：如果您是函数式编程新手，建议从 Haskell 101 开始
+3. **阅读与编码**：每篇文章都包含可运行的代码示例
+4. **实验探索**：所有代码示例都可以在本地使用 GHC/GHCi 运行
 
-### For Haskell Examples
+### 运行 Haskell 示例
 
-To run the Haskell examples, you'll need GHC (Glasgow Haskell Compiler) installed:
+要运行 Haskell 示例，您需要安装 GHC（Glasgow Haskell Compiler）：
 
 ```bash
-# Install GHC and cabal (Haskell build tool)
-# On macOS:
+# 安装 GHC 和 cabal（Haskell 构建工具）
+# 在 macOS 上:
 brew install ghc cabal-install
 
-# On Linux:
+# 在 Linux 上:
 sudo apt-get install ghc cabal-install
 
-# On Windows:
-# Download from https://www.haskell.org/platform/
+# 在 Windows 上:
+# 从 https://www.haskell.org/platform/ 下载
 ```
 
-Then navigate to any example and run it:
+然后导航到任何示例并运行：
 
 ```bash
-cd content/en/haskell/01-haskell-101/examples
+cd content/zh-CN/haskell/01-haskell-101/examples
 
-# Run in GHCi (interactive mode)
+# 在 GHCi（交互模式）中运行
 ghci basic.hs
-# In GHCi prompt, type: main
+# 在 GHCi 提示符中，输入: main
 
-# Or compile and run
+# 或编译后运行
 ghc basic.hs
 ./basic
 ```
 
-## 🗂️ Repository Structure
+## 🗂️ 仓库结构
 
 ```
 cardano-learning/
-├── README.md                          # This file (English)
-├── README.zh-CN.md                    # Chinese main README
+├── README.md                          # 中文主 README（本文件）
+├── README.en.md                       # 英文主 README
 ├── content/
-│   ├── en/                           # English content
+│   ├── en/                           # 英文内容
 │   │   ├── haskell/
-│   │   │   └── 01-haskell-101/
-│   │   │       ├── why-cardano-chose-haskell.md
-│   │   │       └── examples/
-│   │   │           ├── basic.hs
-│   │   │           ├── factorial.hs
-│   │   │           ├── lists.hs
-│   │   │           └── account.hs
 │   │   ├── plutus/
 │   │   ├── cardano/
 │   │   └── other-languages/
-│   └── zh-CN/                        # Simplified Chinese content
-│       └── (mirrors en/ structure)
+│   └── zh-CN/                        # 简体中文内容
+│       ├── haskell/
+│       │   └── 01-haskell-101/
+│       │       ├── why-cardano-chose-haskell.md
+│       │       └── examples/
+│       │           ├── basic.hs
+│       │           ├── factorial.hs
+│       │           ├── lists.hs
+│       │           └── account.hs
+│       ├── plutus/
+│       ├── cardano/
+│       └── other-languages/
 ├── assets/
 │   └── images/
 ├── CONTRIBUTING.md
 └── LICENSE
 ```
 
-## 🤝 Contributing
+## 🤝 贡献
 
-We welcome contributions! Whether it's:
-- Fixing typos or improving explanations
-- Translating content
-- Adding new topics or examples
-- Suggesting improvements
+我们欢迎贡献！无论是：
+- 修正错别字或改进解释
+- 翻译内容
+- 添加新主题或示例
+- 提出改进建议
 
-Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+请参阅 [CONTRIBUTING.md](CONTRIBUTING.md) 了解贡献指南。
 
-## 📖 Learning Path Suggestions
+## 📖 学习路径建议
 
-### For Complete Beginners
-1. Start with [Haskell 101](content/en/haskell/01-haskell-101/why-cardano-chose-haskell.md)
-2. Run all code examples and experiment
-3. Move to Plutus basics (coming soon)
+### 对于完全初学者
+1. 从 [Haskell 101](content/zh-CN/haskell/01-haskell-101/why-cardano-chose-haskell.md) 开始
+2. 运行所有代码示例并进行实验
+3. 继续学习 Plutus 基础（即将推出）
 
-### For Developers with OOP Background
-1. Read the OOP vs FP comparison in Haskell 101
-2. Focus on understanding immutability and pure functions
-3. Practice with recursion and pattern matching examples
+### 对于有 OOP 背景的开发者
+1. 阅读 Haskell 101 中的 OOP vs FP 对比
+2. 重点理解不可变性和纯函数
+3. 练习递归和模式匹配示例
 
-### For Blockchain Developers
-1. Review Haskell fundamentals
-2. Understand why Cardano chose Haskell
-3. Dive into Plutus smart contracts (coming soon)
+### 对于区块链开发者
+1. 复习 Haskell 基础
+2. 理解 Cardano 选择 Haskell 的原因
+3. 深入学习 Plutus 智能合约（即将推出）
 
-## 🔗 Official Resources
+## 🔗 官方资源
 
-- [Cardano Official Documentation](https://docs.cardano.org/)
-- [Cardano Foundation](https://cardanofoundation.org/)
-- [Plutus Documentation](https://plutus.readthedocs.io/)
+- [Cardano 官方文档](https://docs.cardano.org/)
+- [Cardano 基金会](https://cardanofoundation.org/)
+- [Plutus 文档](https://plutus.readthedocs.io/)
 - [Learn You a Haskell for Great Good!](http://learnyouahaskell.com/)
 - [Haskell.org](https://www.haskell.org/)
 
-## 📜 License
+## 📜 许可证
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件。
 
-## 🌟 Support
+## 🌟 支持
 
-If you find this repository helpful, please consider:
-- ⭐ Starring the repository
-- 🔄 Sharing it with others
-- 🤝 Contributing your own knowledge
-- 💬 Opening issues for suggestions or questions
+如果您觉得这个仓库有帮助，请考虑：
+- ⭐ 为仓库加星
+- 🔄 分享给其他人
+- 🤝 贡献您自己的知识
+- 💬 开启 issue 提出建议或问题
 
-## 📬 Contact
+## 📬 联系方式
 
-For questions, suggestions, or collaboration opportunities, please open an issue on GitHub.
+如有问题、建议或合作机会，请在 GitHub 上开启 issue。
 
 ---
 
-**Built with ❤️ for the Cardano community**
+**用 ❤️ 为 Cardano 社区打造**
