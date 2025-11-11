@@ -1,0 +1,70 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.37.0.
+--
+-- see: https://github.com/sol/hpack
+
+name:           lecture1-zh-cn
+version:        0.1.0.0
+synopsis:       Haskell Beginners Course - Lecture 1 (Simplified Chinese)
+description:    Please see the README on GitHub at <https://github.com/mauyin/lecture-1-zh-cn#readme>
+category:       Education
+homepage:       https://github.com/mauyin/lecture-1-zh-cn#readme
+bug-reports:    https://github.com/mauyin/lecture-1-zh-cn/issues
+author:         Haskell Learner
+maintainer:     example@example.com
+copyright:      2025 Haskell Learner
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/mauyin/lecture-1-zh-cn
+
+library
+  exposed-modules:
+      Lecture1
+      BasicDrills
+      InteractiveExamples
+      Challenges
+  other-modules:
+      Paths_lecture1_zh_cn
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010
+
+executable lecture1-zh-cn-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_lecture1_zh_cn
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , lecture1-zh-cn
+  default-language: Haskell2010
+
+test-suite lecture1-zh-cn-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      BasicDrillsSpec
+      ChallengesSpec
+      Lecture1Spec
+      Paths_lecture1_zh_cn
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      QuickCheck
+    , base >=4.7 && <5
+    , hspec
+    , lecture1-zh-cn
+  default-language: Haskell2010

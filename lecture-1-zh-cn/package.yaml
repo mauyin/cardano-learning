@@ -1,0 +1,62 @@
+name:                lecture1-zh-cn
+version:             0.1.0.0
+github:              "mauyin/lecture-1-zh-cn"
+license:             BSD3
+author:              "Haskell Learner"
+maintainer:          "example@example.com"
+copyright:           "2025 Haskell Learner"
+
+extra-source-files:
+- README.md
+
+# Metadata used when publishing your package
+synopsis:            Haskell Beginners Course - Lecture 1 (Simplified Chinese)
+category:            Education
+
+description:         Please see the README on GitHub at <https://github.com/mauyin/lecture-1-zh-cn#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+
+ghc-options:
+- -Wall
+- -Wcompat
+- -Widentities
+- -Wincomplete-record-updates
+- -Wincomplete-uni-patterns
+- -Wmissing-export-lists
+- -Wmissing-home-modules
+- -Wpartial-fields
+- -Wredundant-constraints
+
+library:
+  source-dirs: src
+  exposed-modules:
+  - Lecture1
+  - BasicDrills
+  - InteractiveExamples
+  - Challenges
+
+executables:
+  lecture1-zh-cn-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - lecture1-zh-cn
+
+tests:
+  lecture1-zh-cn-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - lecture1-zh-cn
+    - hspec
+    - QuickCheck
